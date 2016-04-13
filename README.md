@@ -1,6 +1,9 @@
 SwitchUserStatelessBundle
 -------------------------
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/?branch=master)
+
 This bundle provides impersonating feature (switch user) for API use.
 
 Install this bundle through [Composer](https://getcomposer.org/):

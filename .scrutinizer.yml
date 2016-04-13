@@ -1,5 +1,7 @@
 checks:
-    php: true
+    php:
+        code_rating: true
+        duplication: true
 
 build_failure_conditions:
     - 'issues.severity(>= MAJOR).new.exists'
