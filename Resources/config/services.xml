@@ -29,7 +29,10 @@
             <argument type="service" id="serializer" />
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.authorization_checker" />
-            <argument>%switch_user_stateless.user_class%</argument>
         </service>
+
+        <service id="switch_user_stateless.controller.api_platform_profile"
+                 class="SwitchUserStatelessBundle\Controller\APIPlatformProfileController"
+                 parent="switch_user_stateless.controller.profile" />
     </services>
 </container>

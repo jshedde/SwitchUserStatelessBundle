@@ -3,9 +3,7 @@ SwitchUserStatelessBundle
 
 This bundle provides impersonating feature (switch user) for API use.
 
-## Installation
-
-Install this bundle using [Composer](https://getcomposer.org/):
+Install this bundle through [Composer](https://getcomposer.org/):
 
 ```
 composer require lafourchette/switch-user-stateless-bundle
@@ -24,18 +22,11 @@ class AppKernel extends Kernel
         ];
 ```
 
-Load routing in `app/config/routing.yml`:
+Finally, load routing in `app/config/routing.yml`:
 
 ```yml
 switch_user_stateless:
     resource: "@SwitchUserStatelessBundle/Resources/config/routing.yml"
-```
-
-Finally, configure this bundle in `app/config/config.yml` file:
-
-```yml
-switch_user_stateless:
-    user_class: UserBundle\Entity\User
 ```
 
 [Read the complete doc](/Resources/doc/index.md)
