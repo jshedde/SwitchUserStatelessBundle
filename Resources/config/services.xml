@@ -33,6 +33,8 @@
 
         <service id="switch_user_stateless.controller.api_platform_profile"
                  class="SwitchUserStatelessBundle\Controller\ApiPlatformProfileController"
-                 parent="switch_user_stateless.controller.profile" />
+                 parent="switch_user_stateless.controller.profile">
+            <argument type="service" id="api.resource_collection" on-invalid="SET NULL" />
+        </service>
     </services>
 </container>

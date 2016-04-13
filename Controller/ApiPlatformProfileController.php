@@ -3,13 +3,41 @@
 namespace SwitchUserStatelessBundle\Controller;
 
 use ApiPlatform\Core\JsonLd\Response as JsonLdResponse;
+use Dunglas\ApiBundle\Api\ResourceCollectionInterface;
+use Dunglas\ApiBundle\Api\ResourceInterface;
+use Dunglas\ApiBundle\Exception\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ApiPlatformProfileController extends ProfileController
 {
+    /**
+     * @var ResourceCollectionInterface
+     */
+    private $resourceCollection;
+
+    /**
+     * @param NormalizerInterface              $serializer
+     * @param TokenStorageInterface            $tokenStorage
+     * @param AuthorizationCheckerInterface    $authorizationChecker
+     * @param ResourceCollectionInterface|null $resourceCollection
+     */
+    public function __construct(
+        NormalizerInterface $serializer,
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker,
+        ResourceCollectionInterface $resourceCollection = null
+    ) {
+        parent::__construct($serializer, $tokenStorage, $authorizationChecker);
+
+        $this->resourceCollection = $resourceCollection;
+    }
+
     /**
      * @Route("/profile")
      * @Method({"GET", "HEAD"})
@@ -20,13 +48,33 @@ class ApiPlatformProfileController extends ProfileController
      */
     public function profileAction(Request $request)
     {
-        $context = [
-            'request_uri' => $request->getRequestUri(),
-            'resource_class' => get_class($this->tokenStorage->getToken()->getUser()),
-            'item_operation_name' => 'profile',
-        ];
+        $user = $this->tokenStorage->getToken()->getUser();
 
-        return new JsonLdResponse($this->serializer->normalize($this->tokenStorage->getToken()->getUser(), 'jsonld', $context));
+        // API Platform 1
+        if (null !== $this->resourceCollection) {
+            return new Response(
+                $this->serializer->normalize(
+                    $user,
+                    'json-ld',
+                    $this->getResource($request)->getNormalizationContext() + [
+                        'request_uri' => $request->getRequestUri(),
+                    ]
+                )
+            );
+        }
+
+        // API Platform 2
+        return new JsonLdResponse(
+            $this->serializer->normalize(
+                $user,
+                'jsonld',
+                [
+                    'request_uri'         => $request->getRequestUri(),
+                    'resource_class'      => get_class($this->tokenStorage->getToken()->getUser()),
+                    'item_operation_name' => 'profile',
+                ]
+            )
+        );
     }
 
     /**
@@ -42,15 +90,56 @@ class ApiPlatformProfileController extends ProfileController
     public function profileImpersonatingAction(Request $request)
     {
         if ($this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
-            $context = [
-                'request_uri' => $request->getRequestUri(),
-                'resource_class' => get_class($this->tokenStorage->getToken()->getUser()),
-                'item_operation_name' => 'profile_impersonating',
-            ];
+            $user = $this->tokenStorage->getToken()->getUser();
 
-            return new JsonLdResponse($this->serializer->normalize($this->tokenStorage->getToken()->getUser(), 'jsonld', $context));
+            // API Platform 1
+            if (null !== $this->resourceCollection) {
+                return new Response(
+                    $this->serializer->normalize(
+                        $user,
+                        'json-ld',
+                        $this->getResource($request)->getNormalizationContext() + [
+                            'request_uri' => $request->getRequestUri(),
+                        ]
+                    )
+                );
+            }
+
+            // API Platform 2
+            return new JsonLdResponse(
+                $this->serializer->normalize(
+                    $user,
+                    'jsonld',
+                    [
+                        'request_uri'         => $request->getRequestUri(),
+                        'resource_class'      => get_class($this->tokenStorage->getToken()->getUser()),
+                        'item_operation_name' => 'profile_impersonating',
+                    ]
+                )
+            );
         }
 
         return new Response('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return ResourceInterface
+     */
+    private function getResource(Request $request)
+    {
+        if (!$request->attributes->has('_resource')) {
+            throw new InvalidArgumentException('The current request doesn\'t have an associated resource.');
+        }
+
+        $shortName = $request->attributes->get('_resource');
+        if (!($resource = $this->resourceCollection->getResourceForShortName($shortName))) {
+            throw new InvalidArgumentException(sprintf('The resource "%s" cannot be found.', $shortName));
+        }
+
+        return $resource;
     }
 }
