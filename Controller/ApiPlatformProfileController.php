@@ -21,8 +21,8 @@ class ApiPlatformProfileController extends ProfileController
     public function profileAction(Request $request)
     {
         $context = [
-            'request_uri'         => $request->getRequestUri(),
-            'resource_class'      => get_class($this->tokenStorage->getToken()->getUser()),
+            'request_uri' => $request->getRequestUri(),
+            'resource_class' => get_class($this->tokenStorage->getToken()->getUser()),
             'item_operation_name' => 'profile',
         ];
 
@@ -43,8 +43,8 @@ class ApiPlatformProfileController extends ProfileController
     {
         if ($this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
             $context = [
-                'request_uri'         => $request->getRequestUri(),
-                'resource_class'      => get_class($this->tokenStorage->getToken()->getUser()),
+                'request_uri' => $request->getRequestUri(),
+                'resource_class' => get_class($this->tokenStorage->getToken()->getUser()),
                 'item_operation_name' => 'profile_impersonating',
             ];
 
