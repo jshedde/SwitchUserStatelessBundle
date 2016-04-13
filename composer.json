@@ -1,0 +1,39 @@
+{
+    "name": "lafourchette/switch-user-stateless-bundle",
+    "type": "symfony-bundle",
+    "description": "Bundle to use impersonating on Symfony API",
+    "keywords": [
+        "REST",
+        "API",
+        "Impersonating"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vincent Chalamon",
+            "email": "vincentchalamon@gmail.com",
+            "homepage": "http://blog.vincent-chalamon.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/http-kernel": "^2.3|^3.0",
+        "symfony/dependency-injection": "^2.3|^3.0",
+        "symfony/http-foundation": "^2.3|^3.0",
+        "symfony/security-core": "^2.3|^3.0",
+        "symfony/serializer": "^2.3|^3.0",
+        "symfony/config": "^2.3|^3.0",
+        "symfony/security-bundle": "^2.3|^3.0",
+        "psr/log": "^1.0",
+        "symfony/security-http": "^2.3|^3.0",
+        "symfony/event-dispatcher": "^2.3|^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.5"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

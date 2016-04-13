@@ -1,0 +1,11 @@
+switch_user_stateless.profile:
+    path: '/profile'
+    methods: ['GET', 'HEAD']
+    defaults:
+        _controller: 'switch_user_stateless.controller.profile:profileAction'
+
+switch_user_stateless.profile_impersonating:
+    path: '/profile-impersonating'
+    methods: ['GET', 'HEAD']
+    defaults:
+        _controller: 'switch_user_stateless.controller.profile:profileImpersonatingAction'

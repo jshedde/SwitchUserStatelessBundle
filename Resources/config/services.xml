@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="security.authentication.provider.switch_user_stateless"
+                 class="SwitchUserStatelessBundle\Security\Authentication\Provider\SwitchUserStatelessProvider"
+                 public="false">
+        </service>
+
+        <service id="security.authentication.listener.switch_user_stateless"
+                 class="SwitchUserStatelessBundle\Security\Firewall\SwitchUserStatelessListener"
+                 public="false">
+            <tag name="monolog.logger" channel="security" />
+            <argument type="service" id="security.token_storage" />
+            <argument /> <!-- User Provider -->
+            <argument type="service" id="security.user_checker" />
+            <argument /> <!--  Provider Key -->
+            <argument type="service" id="security.access.decision_manager" />
+            <argument type="service" id="logger" on-invalid="null" />
+            <argument>X-Switch-User</argument>
+            <argument>ROLE_ALLOWED_TO_SWITCH</argument>
+            <argument type="service" id="event_dispatcher" on-invalid="null"/>
+        </service>
+
+        <service id="switch_user_stateless.controller.profile"
+                 class="SwitchUserStatelessBundle\Controller\ProfileController">
+            <argument type="service" id="serializer" />
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="security.authorization_checker" />
+            <argument>%switch_user_stateless.user_class%</argument>
+        </service>
+    </services>
+</container>
