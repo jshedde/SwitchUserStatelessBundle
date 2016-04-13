@@ -6,6 +6,7 @@ This bundle provides impersonating feature (switch user) for API use.
 1. [Request](#request)
 2. [Security](#security)
 3. [Who am I](#who-am-i)
+4. [Connect with API Platform 2](#connect-with-api-platform-2)
 
 ## Request
 
@@ -24,3 +25,15 @@ have this permission by default.
 ## Who am I
 
 In impersonating use, it is still possible to check who is the original user, by calling `/profile-impersonating` uri.
+
+## Connect with API Platform 2
+
+[API Platform](https://api-platform.com/) is a PHP framework to build REST APIs with JSON-LD responses. By default,
+this bundle supports standard JSON response. To connect with API Platform 2, you need to replace default routing by
+following one:
+
+```yml
+switch_user_stateless:
+    resource: "@SwitchUserStatelessBundle/Controller/ApiPlatformProfileController"
+    type: annotation
+```

@@ -2,6 +2,8 @@
 
 namespace SwitchUserStatelessBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -13,17 +15,17 @@ class ProfileController
     /**
      * @var NormalizerInterface
      */
-    private $serializer;
+    protected $serializer;
 
     /**
      * @var TokenStorageInterface
      */
-    private $tokenStorage;
+    protected $tokenStorage;
 
     /**
      * @var AuthorizationCheckerInterface
      */
-    private $authorizationChecker;
+    protected $authorizationChecker;
 
     /**
      * @param NormalizerInterface           $serializer
@@ -41,6 +43,9 @@ class ProfileController
     }
 
     /**
+     * @Route("/profile")
+     * @Method({"GET", "HEAD"})
+     *
      * @return Response
      */
     public function profileAction()
@@ -51,6 +56,9 @@ class ProfileController
     /**
      * @link http://symfony.com/doc/current/cookbook/security/impersonating_user.html
      *
+     * @Route("/profile-impersonating")
+     * @Method({"GET", "HEAD"})
+     * 
      * @return Response
      */
     public function profileImpersonatingAction()

@@ -26,7 +26,8 @@ Finally, load routing in `app/config/routing.yml`:
 
 ```yml
 switch_user_stateless:
-    resource: "@SwitchUserStatelessBundle/Resources/config/routing.yml"
+    resource: "@SwitchUserStatelessBundle/Controller/ProfileController"
+    type: annotation
 ```
 
 [Read the complete doc](/Resources/doc/index.md)

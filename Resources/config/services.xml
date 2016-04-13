@@ -32,7 +32,7 @@
         </service>
 
         <service id="switch_user_stateless.controller.api_platform_profile"
-                 class="SwitchUserStatelessBundle\Controller\APIPlatformProfileController"
+                 class="SwitchUserStatelessBundle\Controller\ApiPlatformProfileController"
                  parent="switch_user_stateless.controller.profile" />
     </services>
 </container>
