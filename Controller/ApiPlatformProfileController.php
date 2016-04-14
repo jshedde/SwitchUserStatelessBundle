@@ -82,51 +82,6 @@ class ApiPlatformProfileController extends ProfileController
     }
 
     /**
-     * @link http://symfony.com/doc/current/cookbook/security/impersonating_user.html
-     *
-     * @Route("/profile-impersonating")
-     * @Method({"GET", "HEAD"})
-     *
-     * @param Request $request
-     *
-     * @return Response|JsonLdResponse
-     */
-    public function profileImpersonatingAction(Request $request)
-    {
-        if ($this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
-            $user = $this->tokenStorage->getToken()->getUser();
-
-            // API Platform 1
-            if (null !== $this->resourceCollection) {
-                return new JsonResponse(
-                    $this->serializer->normalize(
-                        $user,
-                        'json-ld',
-                        $this->getResource($user)->getNormalizationContext() + [
-                            'request_uri' => $request->getRequestUri(),
-                        ]
-                    )
-                );
-            }
-
-            // API Platform 2
-            return new JsonLdResponse(
-                $this->serializer->normalize(
-                    $user,
-                    'jsonld',
-                    [
-                        'request_uri'         => $request->getRequestUri(),
-                        'resource_class'      => get_class($this->tokenStorage->getToken()->getUser()),
-                        'item_operation_name' => 'profile_impersonating',
-                    ]
-                )
-            );
-        }
-
-        return new Response('', Response::HTTP_NO_CONTENT);
-    }
-
-    /**
      * @param mixed $user
      *
      * @throws InvalidArgumentException

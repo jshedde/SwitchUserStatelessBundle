@@ -26,12 +26,23 @@ class AppKernel extends Kernel
         ];
 ```
 
-Finally, load routing in `app/config/routing.yml`:
+Load routing in `app/config/routing.yml`:
 
 ```yml
 switch_user_stateless:
-    resource: "@SwitchUserStatelessBundle/Controller/ProfileController"
+    resource: "@SwitchUserStatelessBundle/Controller/ProfileController.php"
     type: annotation
+```
+
+Finally, update your firewalls in your `app/config/security.yml` file as following:
+
+```yml
+security:
+    firewalls:
+        main:
+            # ...
+            stateless: true
+            switch_user_stateless: true
 ```
 
 [Read the complete doc](/Resources/doc/index.md)

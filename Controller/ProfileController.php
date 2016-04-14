@@ -58,23 +58,4 @@ class ProfileController
     {
         return new JsonResponse($this->serializer->normalize($this->tokenStorage->getToken()->getUser(), 'json'));
     }
-
-    /**
-     * @link http://symfony.com/doc/current/cookbook/security/impersonating_user.html
-     *
-     * @Route("/profile-impersonating")
-     * @Method({"GET", "HEAD"})
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function profileImpersonatingAction(Request $request)
-    {
-        if ($this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
-            return new JsonResponse($this->serializer->normalize($this->tokenStorage->getToken()->getUser(), 'json'));
-        }
-
-        return new Response('', Response::HTTP_NO_CONTENT);
-    }
 }

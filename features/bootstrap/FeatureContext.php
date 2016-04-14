@@ -75,7 +75,7 @@ JSON;
      */
     public function iImpersonateSomebodysProfile()
     {
-        $this->client->request('GET', '/profile-impersonating', [], [], ['HTTP_X-Switch-User' => 'john.doe']);
+        $this->client->request('GET', '/profile', [], [], ['HTTP_X-Switch-User' => 'john.doe']);
     }
 
     /**
