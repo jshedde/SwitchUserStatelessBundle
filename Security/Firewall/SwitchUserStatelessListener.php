@@ -130,7 +130,7 @@ class SwitchUserStatelessListener implements ListenerInterface
      * @return TokenInterface|null The new TokenInterface if successfully switched, null otherwise
      *
      * @throws AccessDeniedException
-     * @throws \RuntimeException     Token can't be null
+     * @throws \RuntimeException Token can't be null
      */
     private function attemptSwitchUser(Request $request)
     {

@@ -14,6 +14,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/**
+ * @Route("/", service="switch_user_stateless.controller.api_platform_profile")
+ */
 class ApiPlatformProfileController extends ProfileController
 {
     /**
@@ -44,7 +47,7 @@ class ApiPlatformProfileController extends ProfileController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|JsonLdResponse
      */
     public function profileAction(Request $request)
     {
@@ -56,7 +59,7 @@ class ApiPlatformProfileController extends ProfileController
                 $this->serializer->normalize(
                     $user,
                     'json-ld',
-                    $this->getResource($request)->getNormalizationContext() + [
+                    $this->getResource($user)->getNormalizationContext() + [
                         'request_uri' => $request->getRequestUri(),
                     ]
                 )
@@ -85,7 +88,7 @@ class ApiPlatformProfileController extends ProfileController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|JsonLdResponse
      */
     public function profileImpersonatingAction(Request $request)
     {
@@ -98,7 +101,7 @@ class ApiPlatformProfileController extends ProfileController
                     $this->serializer->normalize(
                         $user,
                         'json-ld',
-                        $this->getResource($request)->getNormalizationContext() + [
+                        $this->getResource($user)->getNormalizationContext() + [
                             'request_uri' => $request->getRequestUri(),
                         ]
                     )
@@ -123,21 +126,16 @@ class ApiPlatformProfileController extends ProfileController
     }
 
     /**
-     * @param Request $request
+     * @param mixed $user
      *
      * @throws InvalidArgumentException
      *
      * @return ResourceInterface
      */
-    private function getResource(Request $request)
+    private function getResource($user)
     {
-        if (!$request->attributes->has('_resource')) {
-            throw new InvalidArgumentException('The current request doesn\'t have an associated resource.');
-        }
-
-        $shortName = $request->attributes->get('_resource');
-        if (!($resource = $this->resourceCollection->getResourceForShortName($shortName))) {
-            throw new InvalidArgumentException(sprintf('The resource "%s" cannot be found.', $shortName));
+        if (!($resource = $this->resourceCollection->getResourceForEntity($user))) {
+            throw new InvalidArgumentException(sprintf('The resource "%s" cannot be found.', get_class($user)));
         }
 
         return $resource;

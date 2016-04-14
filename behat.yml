@@ -1,0 +1,25 @@
+default:
+    suites:
+        default:
+            contexts:
+                - FeatureContext:
+                    - "@test.client"
+            paths:
+                - %paths.base%/features/profile.feature
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                env: test
+                debug: true
+                path: "features/app/AppKernel.php"
+                bootstrap: "features/app/bootstrap.php"
+
+api_platform:
+    suites:
+        default:
+            paths:
+                - %paths.base%/features/api_platform.feature
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                env: api_platform

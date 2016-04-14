@@ -5,11 +5,15 @@ namespace SwitchUserStatelessBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/**
+ * @Route("/", service="switch_user_stateless.controller.profile")
+ */
 class ProfileController
 {
     /**
@@ -46,9 +50,11 @@ class ProfileController
      * @Route("/profile")
      * @Method({"GET", "HEAD"})
      *
-     * @return Response
+     * @param Request $request
+     *
+     * @return JsonResponse
      */
-    public function profileAction()
+    public function profileAction(Request $request)
     {
         return new JsonResponse($this->serializer->normalize($this->tokenStorage->getToken()->getUser(), 'json'));
     }
@@ -58,10 +64,12 @@ class ProfileController
      *
      * @Route("/profile-impersonating")
      * @Method({"GET", "HEAD"})
-     * 
-     * @return Response
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
      */
-    public function profileImpersonatingAction()
+    public function profileImpersonatingAction(Request $request)
     {
         if ($this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
             return new JsonResponse($this->serializer->normalize($this->tokenStorage->getToken()->getUser(), 'json'));
