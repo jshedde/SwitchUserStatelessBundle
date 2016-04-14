@@ -8,6 +8,7 @@ use Dunglas\ApiBundle\Api\ResourceInterface;
 use Dunglas\ApiBundle\Exception\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -55,7 +56,7 @@ class ApiPlatformProfileController extends ProfileController
 
         // API Platform 1
         if (null !== $this->resourceCollection) {
-            return new Response(
+            return new JsonResponse(
                 $this->serializer->normalize(
                     $user,
                     'json-ld',
@@ -97,7 +98,7 @@ class ApiPlatformProfileController extends ProfileController
 
             // API Platform 1
             if (null !== $this->resourceCollection) {
-                return new Response(
+                return new JsonResponse(
                     $this->serializer->normalize(
                         $user,
                         'json-ld',

@@ -6,17 +6,13 @@ security:
         SwitchUserStatelessBundle\Tests\UserBundle\Entity\User: plaintext
     providers:
         user_provider:
-            id: user_provider
-#            entity:
-#                class: UserBundle:User
-#                property: username
+            id: security.provider.user
     firewalls:
         main:
             pattern: ^/
-            provider: user_provider
-            http_basic: ~
             stateless: true
             switch_user_stateless: true
+            provider: user_provider
 
 doctrine:
     dbal:
@@ -32,9 +28,9 @@ dunglas_api:
     description: This is a test API
 
 services:
-    user_provider:
+    security.provider.user:
         class: SwitchUserStatelessBundle\Tests\UserBundle\Security\UserProvider
-    resource.user:
+    api.resource.user:
         parent: api.resource
         arguments: [ SwitchUserStatelessBundle\Tests\UserBundle\Entity\User ]
         calls:

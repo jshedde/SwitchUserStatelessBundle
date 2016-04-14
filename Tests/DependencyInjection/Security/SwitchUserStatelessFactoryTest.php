@@ -26,7 +26,7 @@ class SwitchUserStatelessFactoryTest extends \PHPUnit_Framework_TestCase
     public function testGetPosition()
     {
         $factory = new SwitchUserStatelessFactory();
-        $this->assertEquals('pre_auth', $factory->getPosition());
+        $this->assertEquals('http', $factory->getPosition());
     }
 
     public function testGetKey()

@@ -44,7 +44,7 @@ class SwitchUserStatelessFactory implements SecurityFactoryInterface
      */
     public function getPosition()
     {
-        return 'pre_auth';
+        return 'http';
     }
 
     /**

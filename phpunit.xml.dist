@@ -22,8 +22,10 @@
             <directory>src</directory>
             <exclude>
                 <directory>Controller</directory>
+                <directory>features</directory>
                 <directory>Resources</directory>
                 <directory>Tests</directory>
+                <directory>vendor</directory>
             </exclude>
         </whitelist>
     </filter>

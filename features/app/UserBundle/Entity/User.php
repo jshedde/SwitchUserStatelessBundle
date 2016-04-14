@@ -3,12 +3,13 @@
 namespace SwitchUserStatelessBundle\Tests\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -16,8 +17,6 @@ class User
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Groups({"default_output"})
      */
     private $id;
 
@@ -34,8 +33,6 @@ class User
      * @var string
      *
      * @ORM\Column
-     *
-     * @Groups({"default_output"})
      */
     private $password;
 
@@ -67,6 +64,13 @@ class User
     private $firstName;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
+    /**
      * @param int $id
      */
     public function setId($id)
@@ -95,7 +99,7 @@ class User
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getUsername()
     {
@@ -115,7 +119,7 @@ class User
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getPassword()
     {
@@ -180,5 +184,36 @@ class User
     public function getFirstName()
     {
         return $this->firstName;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+        return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
     }
 }

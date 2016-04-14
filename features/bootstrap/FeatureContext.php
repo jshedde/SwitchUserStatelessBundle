@@ -58,14 +58,13 @@ JSON;
         // TODO fix valid JSON-LD response
         $expected = <<<JSON
 {
-    "roles": ["ROLE_ALLOWED_TO_SWITCH"],
-    "password": "admin",
-    "salt": null,
+    "@context": "/contexts/User",
+    "@id": "/users/42",
+    "@type": "User",
     "username": "admin",
-    "accountNonExpired": true,
-    "accountNonLocked": true,
-    "credentialsNonExpired": true,
-    "enabled": true
+    "email": "admin@example.com",
+    "lastName": "ADMIN",
+    "firstName": "Admin"
 }
 JSON;
         $this->assertJSONAreEquals($expected, $this->client->getResponse()->getContent());
@@ -107,14 +106,13 @@ JSON;
         // TODO fix valid JSON-LD response
         $expected = <<<JSON
 {
-    "roles": ["ROLE_USER"],
-    "password": "john.doe",
-    "salt": null,
+    "@context": "/contexts/User",
+    "@id": "/users/54",
+    "@type": "User",
     "username": "john.doe",
-    "accountNonExpired": true,
-    "accountNonLocked": true,
-    "credentialsNonExpired": true,
-    "enabled": true
+    "email": "john.doe@example.com",
+    "lastName": "DOE",
+    "firstName": "John"
 }
 JSON;
         $this->assertJSONAreEquals($expected, $this->client->getResponse()->getContent());
