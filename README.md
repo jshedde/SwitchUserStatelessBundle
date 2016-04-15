@@ -4,8 +4,8 @@ SwitchUserStatelessBundle
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lafourchette/SwitchUserStatelessBundle/?branch=master)
 [![Build Status](https://travis-ci.org/lafourchette/SwitchUserStatelessBundle.svg?branch=master)](https://travis-ci.org/lafourchette/SwitchUserStatelessBundle)
-[![Dependency Status](https://www.versioneye.com/user/projects/570f9370fcd19a0045440f83/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570f9370fcd19a0045440f83)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/0171bfdd-8b63-495d-abc2-062d20b81034/mini.png)](https://insight.sensiolabs.com/projects/0171bfdd-8b63-495d-abc2-062d20b81034)
+[![Dependency Status](https://www.versioneye.com/user/projects/5710a925fcd19a0039f17030/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5710a925fcd19a0039f17030)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/fb95e39f-09a5-4c3e-a004-c7b93a8bd725/mini.png)](https://insight.sensiolabs.com/projects/fb95e39f-09a5-4c3e-a004-c7b93a8bd725)
 
 This bundle provides impersonating feature (switch user) for API use.
 
